@@ -21,10 +21,8 @@
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
             <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
             <% end %>
-            <!-- いいね機能 -->
           <td>
             <% if @book.favorited_by?(current_user) %>
-              <!--消す-->
               <%= link_to book_favorite_path(@book), method: :delete do %>
                 ♥<%= @book.favorites.count %>
               <% end %>
@@ -36,6 +34,26 @@
           </td>
         </tr>
       </table>
+      <table>
+        <tbody>
+          <% @book.book_comments.each do |book_comment| %>
+          <tr>
+            <td><%= image_tag book_comment.user.get_profile_image(100, 100) %></td>
+            <td><%= book_comment.commet %></td>
+            <td>削除</td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+
     </div>
+  </div>
+  <div class="row">
+        <div>
+        <%= form_with mdoel: [@book, @book_comment] do |f| %>
+          <%= f.text_area :comment,  class: "form-control" %>
+          <%= f.submit "送信" %>
+        <% end %>
+      </div>
   </div>
 </div>
