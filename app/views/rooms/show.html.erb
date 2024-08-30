@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row d-flex justify-container-start">
+    <div class="col-8">
+      <% @entries.each do |e| %>
+        <% if @myUserId != e.user.id %>
+          <h2><%= e.user.name %>さんとのチャット</h2>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-8">
+      <% @messages.each do |m| %>
+        <p><%= m.message %></p>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <%= form_with model: @message do |f| %>
+        <%= f.text_field :message %>
+        <%= f.hidden_field :room_id, value: @room.id %>
+        <%= f.submit "投稿" %>
+      <% end %>
+    </div>
+  </div>
+</div>

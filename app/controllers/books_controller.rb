@@ -7,6 +7,9 @@ class BooksController < ApplicationController
     user_id = @book.user_id
     @user = User.find(user_id)
     @book_new = Book.new
+    unless ViewCount.find_by(user_id: current_user.id, book_id: @book.id)
+      current_user.view_counts.create(book_id: @book.id)
+    end
   end
 
   def index
